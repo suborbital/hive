@@ -40,8 +40,14 @@ func (c *core) do(job *Job) *Result {
 
 	worker := c.findWorker(job.jobType)
 	if worker == nil {
-		result.sendErr(fmt.Errorf("failed to getWorker for jobType %q", job.jobType))
-		return result
+		// if the job contains a task, let's auto-handle it
+		if job.task != nil {
+			c.register(job.jobType, &taskRunner{})
+			worker = c.findWorker(job.jobType)
+		} else {
+			result.sendErr(fmt.Errorf("failed to findWorker for jobType %q", job.jobType))
+			return result
+		}
 	}
 
 	go func() {

@@ -12,6 +12,7 @@ type Job struct {
 	uuid    string
 	jobType string
 	result  *Result
+	task    Task // tasks are embedded in Jobs to make them compatible with the scheduler
 	data    interface{}
 }
 
@@ -21,6 +22,17 @@ func NewJob(jobType string, data interface{}) Job {
 		uuid:    uuid.New().String(),
 		jobType: jobType,
 		data:    data,
+	}
+
+	return j
+}
+
+// newTaskJob creates a new job that uses a Task
+func newTaskJob(jobType string, t Task) Job {
+	j := Job{
+		uuid:    uuid.New().String(),
+		jobType: jobType,
+		task:    t,
 	}
 
 	return j
