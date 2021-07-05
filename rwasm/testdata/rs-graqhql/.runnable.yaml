@@ -1,0 +1,5 @@
+name: rs-graqhql
+namespace: default
+lang: rust
+version: ""
+apiVersion: 0.10.0

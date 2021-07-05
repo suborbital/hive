@@ -33,6 +33,19 @@ func TestWasmRunnerWithFetch(t *testing.T) {
 	}
 }
 
+func TestGraphQLRunner(t *testing.T) {
+	r := rt.New()
+
+	// test a WASM module that is loaded directly instead of through the bundle
+	doWasm := r.Register("wasm", rwasm.NewRunner("../testdata/rs-graqhql/rs-graqhql.wasm"))
+
+	_, err := doWasm("").Then()
+	if err != nil {
+		t.Error(errors.Wrap(err, "failed to Then"))
+		return
+	}
+}
+
 func TestWasmRunnerReturnError(t *testing.T) {
 	job := rt.NewJob("return-err", "")
 
