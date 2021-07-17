@@ -1,0 +1,5 @@
+name: as-json
+namespace: default
+lang: assemblyscript
+version: ""
+apiVersion: 0.10.0

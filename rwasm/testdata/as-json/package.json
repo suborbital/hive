@@ -1,0 +1,21 @@
+{
+  "name": "as-json",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "node tests",
+    "asbuild": "asc src/index.ts --transform ./node_modules/json-as/transform --target release --use abort=src/index/abort"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "assemblyscript": "^0.19"
+  },
+  "dependencies": {
+    "@assemblyscript/loader": "^0.19",
+    "@suborbital/suborbital": "^0.10.0",
+    "json-as": "github:aspkg/as-json",
+    "source-map-support": "^0.5.19"
+  }
+}

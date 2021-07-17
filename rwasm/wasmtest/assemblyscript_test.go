@@ -48,6 +48,23 @@ func TestASFetch(t *testing.T) {
 	}
 }
 
+func TestASJSON(t *testing.T) {
+	r := rt.New()
+
+	// test a WASM module that is loaded directly instead of through the bundle
+	doWasm := r.Register("as-json", rwasm.NewRunner("../testdata/as-json/as-json.wasm"))
+
+	res, err := doWasm("").Then()
+	if err != nil {
+		t.Error(errors.Wrap(err, "failed to Then"))
+		return
+	}
+
+	if string(res.([]byte)) != `{"firstName":"Connor","lastName":"Hicks","age":26,"meta":{"country":"Canada"},"tags":["hello","world"]}` {
+		t.Error("as-json failed, got:", string(res.([]byte)))
+	}
+}
+
 func TestASLargeData(t *testing.T) {
 	r := rt.New()
 
